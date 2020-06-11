@@ -1,20 +1,30 @@
-import { Validator } from 'tg-validators'
+import { Validator, Model } from 'tg-validators'
 
 export default {
   name: 'TgForm',
   props: {
     form: Object,
-    labels: Object,
-    rules: Array
+    labels: {
+      type: Object,
+      default: () => ({})
+    },
+    rules: {
+      type: Array,
+      default: () => []
+    }
   },
   data () {
     return {
-      errors: {}
+      model: null,
+      errors: {},
     }
   },
   computed: {
     validators () {
       return Validator.getValidators(this.rules, this.labels)
+    },
+    hasErrors () {
+      return Object.keys(this.errors).length > 0
     }
   },
   provide () {
@@ -37,8 +47,8 @@ export default {
 
   },
   methods: {
-    validate () {
-      return Validator.validate(this.form, this.rules, this.labels)
+    validate (attrs) {
+      return Validator.validate(this.form, this.rules, this.labels, attrs)
         .then(() => {
           this.errors = {}
         })

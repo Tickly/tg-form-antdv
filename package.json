@@ -7,9 +7,12 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "deploy": "bash deploy.sh"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@vue/cli-service": "^4.4.1"
+  },
   "devDependencies": {
     "@babel/runtime": "^7.10.2",
     "ant-design-vue": "^1.6.2",

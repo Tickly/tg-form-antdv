@@ -10,7 +10,13 @@ export default {
   },
   computed: {
     _label () {
-      return this.label || this.form.labels[this.prop] || this.prop
+      let label = this.label
+
+      if (label === undefined) {
+        label = this.form.labels[this.prop] || this.prop
+      }
+
+      return label
     },
     // 获取只跟自己相关的验证规则
     myValidators () {
