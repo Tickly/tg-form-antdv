@@ -12,6 +12,6 @@
 
 ## 方法
 
-| 方法 | 参数列表
-|-|-|
-| validate | (attrs: string | string[])
+| 方法 | 参数列表 | 方法介绍
+|-|-|-|
+| validate | (attrs: string \| string[]) | 验证表单，可以传入要验证的字段，也可以不传来验证全部字段

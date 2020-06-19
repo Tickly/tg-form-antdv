@@ -1,6 +1,6 @@
 # tg-form-antdv
 
-`tg-form-antdv` 是一个基于 [ant-design-vue](https://www.antdv.com/components/form-cn/) 与 [tg-validators](https://github.com/Tickly/tg-validators) 封装的表单验证组件
+`tg-form-antdv` 是一个基于 [ant-design-vue](https://www.antdv.com/components/form-cn/) 与 [tg-validators](https://github.com/Tickly/tg-validators) 封装的表单组件
 
 ## 干什么的
 
@@ -12,6 +12,10 @@
 `npm i tg-form-antdv`
 ### yarn
 `yarn add tg-form-antdv`
+
+## todo
+
+- 目前是数据变动就自动触发验证，考虑加入trigger属性配置，可以指定是change还是blur时触发。
 
 ## 备注
 

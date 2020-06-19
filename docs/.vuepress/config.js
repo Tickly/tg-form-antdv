@@ -21,7 +21,8 @@ module.exports = {
       {
         title: 'API',
         children: [
-          '/api/tg-form'
+          '/api/tg-form',
+          '/api/tg-form-item',
         ]
       }
     ]
