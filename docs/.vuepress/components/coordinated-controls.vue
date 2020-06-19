@@ -21,7 +21,7 @@ export default {
     return {
       form: {
         note: '',
-        gender: ''
+        gender: undefined
       },
       rules: [
         ['required', ['note', 'gender']]
