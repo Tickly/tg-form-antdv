@@ -59,7 +59,7 @@ export default {
         props: {
           label: this._label,
           required: this.isRequired,
-          help: this.help,
+          help: this.form.showHelp ? this.help : '',
           validateStatus: this.validateStatus,
           ...this.$attrs
         }

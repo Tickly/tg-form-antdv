@@ -11,6 +11,14 @@ export default {
     rules: {
       type: Array,
       default: () => []
+    },
+    /**
+     * 是否显示错误提示，默认显示
+     * 暂时由form全部控制，后面可以考虑单独给form-item加上
+     */
+    showHelp: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
