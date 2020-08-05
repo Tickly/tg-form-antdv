@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --target lib --name tg-form-antdv src/main.js",
     "lint": "vue-cli-service lint",
     "deploy": "bash deploy.sh",
     "docs:build": "vuepress build docs",

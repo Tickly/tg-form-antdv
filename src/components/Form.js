@@ -1,5 +1,4 @@
 import { Validator, Model } from 'tg-validators'
-import { Object } from 'core-js'
 
 export default {
   name: 'TgForm',
