@@ -62,7 +62,10 @@ export default {
           help: this.form.showHelp ? this.help : '',
           validateStatus: this.validateStatus,
           ...this.$attrs
-        }
+        },
+        scopedSlots: {
+          label: () => h(this.$slots.label)
+        },
       },
       this.$slots.default
     )
