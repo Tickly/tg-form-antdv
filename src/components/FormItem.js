@@ -58,16 +58,17 @@ export default {
       {
         props: {
           label: this._label,
+          colon: !this.$slots.label,
           required: this.isRequired,
           help: this.form.showHelp ? this.help : '',
           validateStatus: this.validateStatus,
           ...this.$attrs
         },
-        scopedSlots: {
-          label: () => h(this.$slots.label)
-        },
       },
-      this.$slots.default
+      [
+        this.$slots.label ? h('template', { slot: 'label' }, this.$slots.label) : null,
+        this.$slots.default
+      ]
     )
   }
 }
