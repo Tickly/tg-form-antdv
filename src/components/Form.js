@@ -51,9 +51,7 @@ export default {
       this.$slots.default
     )
   },
-  created () {
-
-  },
+  created () { },
   methods: {
     parseAttrs (attrs) {
       if (typeof attrs === 'string') return attrs.split(',')
@@ -94,9 +92,13 @@ export default {
      * @param {Array} attrs 指定属性名
      */
     clearErrors (attrs = []) {
-      attrs.forEach(attr => {
-        this.$delete(this.errors, attr)
-      })
+      if (attrs.length) {
+        attrs.forEach(attr => {
+          this.$delete(this.errors, attr)
+        })
+      } else {
+        this.errors = {}
+      }
     }
   }
 }
