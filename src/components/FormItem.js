@@ -48,7 +48,7 @@ export default {
   created () {
     if (this.attr) {
       this.$watch('value', () => {
-        this.form.validate(this.attr)
+        this.form.validate(this.attr).catch(() => { })
       })
     }
   },
