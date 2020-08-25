@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     validators () {
-      return Validator.getValidators(this.rules, this.labels)
+      return Validator.getValidators(this.form, this.rules, this.labels)
     },
     hasErrors () {
       return Object.keys(this.errors).length > 0
