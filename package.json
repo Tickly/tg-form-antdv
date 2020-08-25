@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@vue/cli-service": "^4.4.1",
-    "tg-validators": "^1.3.0"
+    "tg-validators": "^1.3.1"
   },
   "devDependencies": {
     "@babel/runtime": "^7.10.2",

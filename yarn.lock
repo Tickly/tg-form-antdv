@@ -9070,10 +9070,10 @@ text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
-tg-validators@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/tg-validators/-/tg-validators-1.3.0.tgz#6059678767c85be3dcf9deaea387a3d231446e42"
-  integrity sha512-kvoZHZD0Urut/UC26OJnBavjort4WD4FtfQz/uGBhulVaU/o0NWkqOK3PmI9nAM5EWcOhiUHHso4b7RqIg0z2w==
+tg-validators@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/tg-validators/-/tg-validators-1.3.1.tgz#22184a7847ce590ce69c8d2531c1feffc7689b28"
+  integrity sha512-SElZ7F8NtYKEVB316EDxL2wGt+MqNoxRJOZZrVhR82CLiyMiEBfp8kev3+3Smt9RyNargHLNSrpAQo0C1U4zKA==
 
 thenify-all@^1.0.0:
   version "1.6.0"
