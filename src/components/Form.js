@@ -90,7 +90,7 @@ export default {
      * 清除错误信息
      * @param {Array} attrs 指定属性名
      */
-    clearErrors (attrs) {
+    clearErrors (attrs = []) {
       console.log('clearErrors', attrs)
       if (attrs.length) {
         attrs.forEach(attr => {
