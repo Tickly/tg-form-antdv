@@ -53,36 +53,35 @@ export default {
   },
   created () { },
   methods: {
+    /**
+     * 解析属性列表
+     * string 'abc' 'abc,def'
+     * array ['abc','def']
+     * @param {String,Array} attrs 属性列表
+     * @returns {Array} 返回一个数组
+     */
     parseAttrs (attrs) {
       if (typeof attrs === 'string') return attrs.split(',')
       if (Array.isArray(attrs)) return attrs
-
-      return attrs
+      return []
     },
     /**
      * 验证
-     * @param {String|String[]} attrs 要验证的属性
+     * @param {String|String[]} attributes 要验证的属性
      */
-    validate (attrs) {
-      const arrs = this.parseAttrs(attrs)
-      return Validator.validate(this.form, this.rules, this.labels, arrs)
+    validate (attributes) {
+      const attrs = this.parseAttrs(attributes)
+
+      console.log('validate', attributes)
+      console.log(this.form, this.rules, this.labels, attrs)
+
+      return Validator.validate(this.form, this.rules, this.labels, attrs)
         .then(() => {
           // 验证成功了，要清空之前的错误信息
-          if (attrs === null) {
-            this.errors = {}
-          } else {
-            this.clearErrors(arrs)
-          }
+          this.clearErrors(attrs)
         })
         .catch(errors => {
-          if (attrs === null) {
-            this.errors = errors
-          } else {
-            this.errors = {
-              ...this.errors,
-              ...errors
-            }
-          }
+          this.addErrors(attrs, errors)
 
           return Promise.reject(errors)
         })
@@ -91,13 +90,29 @@ export default {
      * 清除错误信息
      * @param {Array} attrs 指定属性名
      */
-    clearErrors (attrs = []) {
+    clearErrors (attrs) {
+      console.log('clearErrors', attrs)
       if (attrs.length) {
         attrs.forEach(attr => {
           this.$delete(this.errors, attr)
         })
       } else {
         this.errors = {}
+      }
+    },
+    /**
+     * 添加错误信息
+     * @param {Array}} attrs 属性列表
+     * @param {Object} errors 错误信息
+     */
+    addErrors (attrs, errors) {
+      console.log('addErrors', attrs, errors)
+      if (attrs.length) {
+        attrs.forEach(attr => {
+          this.$set(this.errors, attr, errors[attr])
+        })
+      } else {
+        this.errors = errors
       }
     }
   }

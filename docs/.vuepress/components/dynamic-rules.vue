@@ -1,9 +1,9 @@
 <template>
   <tg-form ref="form" :form="form" :rules="rules">
-    <tg-form-item prop="name">
+    <tg-form-item attr="name">
       <a-input v-model="form.name" placeholder="Please input your name" />
     </tg-form-item>
-    <tg-form-item prop="nickname">
+    <tg-form-item attr="nickname">
       <a-input v-model="form.nickname" placeholder="Please input your nickname" />
     </tg-form-item>
     <a-form-item>
@@ -28,7 +28,7 @@ export default {
   computed: {
     rules () {
       return [
-        ['required', ['name', this.checkNick && 'nickname']]
+        ['required', ['name', this.checkNick ? 'nickname' : '']]
       ]
     }
   },
