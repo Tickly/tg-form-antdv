@@ -105,7 +105,7 @@ export default {
      * @param {Array}} attrs 属性列表
      * @param {Object} errors 错误信息
      */
-    addErrors (attrs, errors) {
+    addErrors (attrs = [], errors) {
       console.log('addErrors', attrs, errors)
       if (attrs.length) {
         attrs.forEach(attr => {
