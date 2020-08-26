@@ -114,6 +114,14 @@ export default {
       } else {
         this.errors = errors
       }
+    },
+    /**
+     * 当属性发生变更时，无法自动检测到，需要手动触发
+     * 例如用了自己封装的组件，属性值可能是一个对象或数组，无法常规检测到变更，需要手动触发该事件
+     * @param {String} attribute 属性名称
+     */
+    change (attribute) {
+      this.validate(attribute)
     }
   }
 }

@@ -19,6 +19,12 @@ module.exports = {
         ]
       },
       {
+        title: '表单验证',
+        children: [
+          '/validate/array'
+        ]
+      },
+      {
         title: 'API',
         children: [
           '/api/tg-form',
