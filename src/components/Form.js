@@ -24,7 +24,7 @@ export default {
   data () {
     return {
       model: null,
-      errors: {}
+      errors: {},
     }
   },
   computed: {

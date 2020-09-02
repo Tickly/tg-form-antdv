@@ -3963,6 +3963,11 @@ eslint-config-standard@^14.1.0:
   resolved "https://registry.yarnpkg.com/eslint-config-standard/-/eslint-config-standard-14.1.1.tgz#830a8e44e7aef7de67464979ad06b406026c56ea"
   integrity sha512-Z9B+VR+JIXRxz21udPTL9HpFMyoMUEeX1G251EQ6e05WD9aPVtVBn09XUmZ259wCMlCDmYDSZG62Hhm+ZTJcUg==
 
+eslint-config-tg-config@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-tg-config/-/eslint-config-tg-config-1.0.1.tgz#89d9e79da295d122e1b8e54ba683824a0da63356"
+  integrity sha512-2yKnftRfhIJnG7ImdwGHOcNnb+BTAm/I0KBNz42TQWr9Hfgx6mophmvLJsQG75r/pkkVV+LNctOoIfqsqWYC4w==
+
 eslint-import-resolver-node@^0.3.3:
   version "0.3.4"
   resolved "https://registry.yarnpkg.com/eslint-import-resolver-node/-/eslint-import-resolver-node-0.3.4.tgz#85ffa81942c25012d8231096ddf679c03042c717"
@@ -9070,10 +9075,12 @@ text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
-tg-validators@^1.3.3:
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/tg-validators/-/tg-validators-1.3.3.tgz#6b5b18647c04468f84d5dd9bcd06ad4f5374abd2"
-  integrity sha512-DePP5UYGl12/6hTgvioHRI2OP5On4MNBH4V35QU4gmvy51ORKaV3DHg4HOx6okigv+quX7TLRto8I6I0v006rw==
+tg-validators@^1.3.5:
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/tg-validators/-/tg-validators-1.3.5.tgz#29f172db0bb0f624a85d68b9cff1cc0b261e3168"
+  integrity sha512-kk7vu+MYzF5cC+fZkd75jn3ROr33YVdfqANKXjfOf85744J0YngOrewf0eryy/ibeA3tXT0EgZuGmUlcqN1qzg==
+  dependencies:
+    core-js "^3.6.5"
 
 thenify-all@^1.0.0:
   version "1.6.0"
