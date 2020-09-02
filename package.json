@@ -1,6 +1,6 @@
 {
   "name": "tg-form-antdv",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": "dist/tg-form-antdv.common.js",
   "scripts": {
     "build": "vue-cli-service build --target lib --name tg-form-antdv src/main.js",
