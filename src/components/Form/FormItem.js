@@ -3,7 +3,13 @@ export default {
   name: 'TgFormItem',
   props: {
     attr: String,
-    label: String
+    label: String,
+
+    labelCol: { type: Number, default: 6 },
+    colSpan: {
+      type: Number,
+      default: 1,
+    }
   },
   inject: {
     form: 'tgForm'
@@ -18,14 +24,6 @@ export default {
 
       return label
     },
-    // 获取只跟自己相关的验证规则
-    myValidators () {
-      return this.form.validators.filter(v => v.attributes.indexOf(this.attr) > -1)
-    },
-    // 字段是否必填
-    isRequired () {
-      return !!this.myValidators.find(v => v.constructor.type === 'required')
-    },
     formErrors () {
       return this.form.errors
     },
@@ -36,10 +34,6 @@ export default {
     // 校验文案
     help () {
       if (this.errors.length) return this.errors[0]
-    },
-    //
-    validateStatus () {
-      if (this.help) return 'error'
     },
     value () {
       return this.form.form[this.attr]
@@ -53,17 +47,26 @@ export default {
     }
   },
   render (h) {
+    let props = {
+      label: this._label,
+      colon: !this.$slots.label,
+      required: this.isRequired,
+      help: this.form.showHelp ? this.help : '',
+      ...this.$attrs,
+    }
+    let style = {}
+    if (this.form.columns) {
+      style.width = (100 / this.form.columns * this.colSpan).toFixed(2) + '%'
+      props.labelCol = { span: this.labelCol }
+      props.wrapperCol = { span: 24 - this.labelCol }
+    }
+
     return h(
       'a-form-item',
       {
-        props: {
-          label: this._label,
-          colon: !this.$slots.label,
-          required: this.isRequired,
-          help: this.form.showHelp ? this.help : '',
-          validateStatus: this.validateStatus,
-          ...this.$attrs
-        },
+        class: 'model-form-item',
+        props,
+        style,
       },
       [
         this.$slots.label ? h('template', { slot: 'label' }, this.$slots.label) : null,

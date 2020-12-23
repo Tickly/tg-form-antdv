@@ -6,31 +6,49 @@ module.exports = {
     sidebar: [
       '/',
       {
-        title: '示例',
+        title: 'Model - 模型',
         children: [
-          '/basic',
-          '/coordinated-controls',
-          '/dynamic-rules',
-          '/inline-login-form',
-          '/form-layout',
-          '/dynamic-form-item',
+          '/Model'
+        ]
+      },
+      {
+        title: 'ModelForm - 模型表单组件',
+        children: [
+          '/model-form',
+          {
+            title: '示例',
+            children: [
+              '/basic',
+              '/coordinated-controls',
+              '/dynamic-rules',
+              '/inline-login-form',
+              '/form-layout',
+              '/dynamic-form-item',
 
-          '/customized-form-controls'
+              '/customized-form-controls'
+            ]
+          },
+          {
+            title: '表单验证',
+            children: [
+              '/validate/array'
+            ]
+          },
+          {
+            title: 'API',
+            children: [
+              '/api/tg-form',
+              '/api/tg-form-item',
+            ]
+          }
         ]
       },
       {
-        title: '表单验证',
-        children: [
-          '/validate/array'
-        ]
+        title: 'ModelTable - 模型表格组件',
+        children: []
       },
-      {
-        title: 'API',
-        children: [
-          '/api/tg-form',
-          '/api/tg-form-item',
-        ]
-      }
+
     ]
-  }
+  },
+
 }

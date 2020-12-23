@@ -1,5 +1,3 @@
-import { Validator, Model } from 'tg-validators'
-
 export default {
   name: 'TgForm',
   props: {
@@ -12,6 +10,10 @@ export default {
       type: Array,
       default: () => []
     },
+    /**
+     * 表示一列显示几个FormItem，如果不设置，或者0，则使用layout布局
+     */
+    columns: Number,
     /**
      * 是否显示错误提示，默认显示
      * 暂时由form全部控制，后面可以考虑单独给form-item加上
@@ -28,9 +30,6 @@ export default {
     }
   },
   computed: {
-    validators () {
-      return Validator.getValidators(this.form, this.rules, this.labels)
-    },
     hasErrors () {
       return Object.keys(this.errors).length > 0
     }
@@ -41,17 +40,25 @@ export default {
     }
   },
   render (h) {
-    return h(
-      'a-form',
-      {
-        props: {
-          ...this.$attrs
-        }
-      },
-      this.$slots.default
-    )
+    let props = {
+
+    }
+
+    props.layout = 'inline'
+
+    if (this.columns) {
+
+    }
+    return <div class="model-form">
+      <a-form {...{ props }}>
+        {this.$slots.default}
+      </a-form>
+    </div>
+
   },
-  created () { },
+  created () {
+    console.log(this.columns)
+  },
   methods: {
     /**
      * 解析属性列表
@@ -65,27 +72,7 @@ export default {
       if (Array.isArray(attrs)) return attrs
       return []
     },
-    /**
-     * 验证
-     * @param {String|String[]} attributes 要验证的属性
-     */
-    validate (attributes) {
-      const attrs = this.parseAttrs(attributes)
 
-      console.log('validate', attributes)
-      console.log(this.form, this.rules, this.labels, attrs)
-
-      return Validator.validate(this.form, this.rules, this.labels, attrs)
-        .then(() => {
-          // 验证成功了，要清空之前的错误信息
-          this.clearErrors(attrs)
-        })
-        .catch(errors => {
-          this.addErrors(attrs, errors)
-
-          return Promise.reject(errors)
-        })
-    },
     /**
      * 清除错误信息
      * @param {Array} attrs 指定属性名
@@ -120,8 +107,6 @@ export default {
      * 例如用了自己封装的组件，属性值可能是一个对象或数组，无法常规检测到变更，需要手动触发该事件
      * @param {String} attribute 属性名称
      */
-    change (attribute) {
-      this.validate(attribute)
-    }
+    change (attribute) { }
   }
 }

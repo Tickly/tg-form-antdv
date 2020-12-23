@@ -1,12 +1,24 @@
 <template>
-  <tg-form ref="form" :form="form" :rules="rules" :labels="labels">
+  <tg-form ref="form" :columns="3" :form="form" :rules="rules" :labels="labels">
     <tg-form-item attr="username">
       <a-input v-model="form.username" />
     </tg-form-item>
     <tg-form-item attr="password">
       <a-input v-model="form.password" />
     </tg-form-item>
-    <tg-form-item>
+    <tg-form-item attr="password">
+      <a-input v-model="form.password" />
+    </tg-form-item>
+    <tg-form-item attr="password">
+      <a-input v-model="form.password" />
+    </tg-form-item>
+    <tg-form-item attr="password" :col-span="2" :label-col="3">
+      <a-input v-model="form.password" />
+    </tg-form-item>
+    <tg-form-item attr="password" :col-span="3" :label-col="2">
+      <a-input v-model="form.password" />
+    </tg-form-item>
+    <tg-form-item style="padding-left:2em;">
       <a-button type="primary" @click="handleSubmit">登录</a-button>
     </tg-form-item>
   </tg-form>

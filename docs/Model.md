@@ -1,0 +1,7 @@
+# Model
+
+```js
+class Model {
+  
+}
+```
