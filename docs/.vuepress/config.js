@@ -8,10 +8,10 @@ module.exports = {
       {
         title: 'Model - 模型',
         children: [
-          '/Model',
+          '/model',
           {
             title: '类装饰器', children: [
-              '/decorators/property/describable'
+              '/decorators/class/describable'
             ]
           },
           {

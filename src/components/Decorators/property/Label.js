@@ -1,14 +1,10 @@
-import { AddClassMethod, AddDescription, GetDescription } from '../Helper'
-
 export function Label (label) {
   return function (target, property) {
-
-    AddDescription(target, property, {
+    console.log('Label')
+    const description = {
       label
-    })
-
-    AddClassMethod(target, 'getLabel', function (prop) {
-      return GetDescription(target, prop).label
-    })
+    }
+    // 调用类的静态方法
+    target.constructor.addDescription(property, description)
   }
 }
