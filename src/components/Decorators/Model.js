@@ -1,8 +1,10 @@
-import { Describable } from './class/Describable';
-import Descriptions from './Descriptions';
-import { Label } from './property/Label';
+import Descriptions from './Descriptions'
+import { Label } from './property/Label'
 import { getDictNameProperty } from './property/Dict'
 
+import { Describable } from './class/Describable'
+import Rules from './Rules'
+import { Required } from './property/Required'
 @Describable
 class Model {
   @Label('主键id')
@@ -73,6 +75,37 @@ class Model {
   static getDictNameProperty (property) {
     return getDictNameProperty(property)
   }
+
+  // 添加一个验证规则
+  static addRule (property, rule) {
+    let target = this.prototype
+
+    if (!target.hasOwnProperty('rulesInstace')) {
+      target.rulesInstace = new Rules()
+    }
+
+    target.rulesInstace.add(property, rule)
+  }
+
+  static getRules () {
+    let rules = this.prototype.rulesInstace || {}
+    function cloneRules (rules, target) {
+      const parent = Object.getPrototypeOf(target)
+      if (parent === Model) return rules
+      if (parent.prototype && parent.prototype.rulesInstace) {
+        rules = Object.assign({}, parent.prototype.rulesInstace, rules)
+      }
+      return cloneRules(rules, parent)
+    }
+    rules = cloneRules(rules, this)
+    return rules
+  }
+
+  get rules () {
+    const rules = this.constructor.getRules()
+    return this.rulesInstace.generateRules.call(this, rules)
+  }
+  
 }
 
 export { Model }

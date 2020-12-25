@@ -72,3 +72,36 @@ let user = new User(data)
 ### Dict
 指定该字段为字典项。
 
+### 表单验证
+- Reuired 指定该字段为必填项 支持传入函数 比如该字段的必填规则受其他字段影响
+- Length 指定字段最大输入长度
+
+
+```js
+class User extends Model {
+  @Length(10)
+  @Required(function() {
+    return this.age > 10
+  })
+  @Label('名称')
+  name
+
+  age
+}
+const user = new User()
+// user.rules 将得到
+{
+  name: [
+    {required: false, message: '名称不能为空'},
+    {max: 10, message: '最多输入10个字符', trigger: 'blur'},
+  ]
+}
+user.age = 20
+// user.rules 将得到
+{
+  name: [
+    {required: true, message: '名称不能为空'},
+    {max: 10, message: '最多输入10个字符', trigger: 'blur'},
+  ]
+}
+```
