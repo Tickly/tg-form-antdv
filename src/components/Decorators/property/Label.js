@@ -1,3 +1,8 @@
+/**
+ * 给字段添加文本映射
+ * 
+ * @param {String} label 字段文本
+ */
 export function Label (label) {
   return function (target, property) {
     console.log('Label')

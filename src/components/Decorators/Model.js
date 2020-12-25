@@ -45,12 +45,11 @@ class Model {
     if (parent && parent.getDescription) {
       return parent.getDescription(property)
     }
-
-    return {}
   }
 
   static getLabel (property) {
-    return this.getDescription(property).label
+    let description = this.getDescription(property)
+    if (description) return description.label
   }
 }
 
