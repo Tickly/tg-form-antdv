@@ -1,13 +1,14 @@
-import { Describable } from './class/Describable';
-import Descriptions from './Descriptions';
-import { Label } from './property/Label';
-
+import { Describable } from './class/Describable'
+import Descriptions from './Descriptions'
+import Rules from './Rules'
+import { Label } from './property/Label'
+import { Required } from './property/Required'
 @Describable
 class Model {
   @Label('主键id')
   zjid
 
-  static abc () {
+  static abc() {
     return this
   }
 
@@ -16,7 +17,7 @@ class Model {
    * @param {String} property 属性名称
    * @param {Object} description 描述
    */
-  static addDescription (property, description) {
+  static addDescription(property, description) {
     let target = this.prototype
 
     if (!target.hasOwnProperty('descriptions')) {
@@ -30,7 +31,7 @@ class Model {
    * 获取一个属性描述
    * @param {String} property 属性名称
    */
-  static getDescription (property) {
+  static getDescription(property) {
     console.log('getDescription', property, this.prototype.descriptions)
 
     let descriptions = this.prototype.descriptions
@@ -48,10 +49,36 @@ class Model {
 
     return {}
   }
+  // 添加一个验证规则
+  static addRule(property, rule) {
+    let target = this.prototype
 
-  static getLabel (property) {
+    if (!target.hasOwnProperty('rulesInstace')) {
+      target.rulesInstace = new Rules()
+    }
+
+    target.rulesInstace.add(property, rule)
+  }
+  
+  static getLabel(property) {
     return this.getDescription(property).label
   }
+
+  get rules() {
+    let rules = this.rulesInstace || {}
+    function cloneRules(rules, target) {
+      const parent = Object.getPrototypeOf(target)
+      if (parent === Model) return rules
+      if (parent.prototype && parent.prototype.rulesInstace) {
+        rules = Object.assign({}, parent.prototype.rulesInstace, rules)
+      }
+      return cloneRules(rules, parent)
+    }
+    rules = cloneRules(rules, this.constructor)
+    return this.rulesInstace.generateRules.call(this, rules)
+    
+  }
 }
+
 
 export { Model }
