@@ -46,8 +46,6 @@ class Model {
     if (parent && parent.getDescription) {
       return parent.getDescription(property)
     }
-
-    return {}
   }
   // 添加一个验证规则
   static addRule(property, rule) {
@@ -60,8 +58,10 @@ class Model {
     target.rulesInstace.add(property, rule)
   }
   
-  static getLabel(property) {
-    return this.getDescription(property).label
+ 
+  static getLabel (property) {
+    let description = this.getDescription(property)
+    if (description) return description.label
   }
 
   get rules() {
