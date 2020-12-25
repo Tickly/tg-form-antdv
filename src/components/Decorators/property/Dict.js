@@ -6,14 +6,14 @@
  * @param {String} lx 字典项的类型简拼，可以不传
  */
 
-const getDictNameProperty = property => {
+export const getDictNameProperty = property => {
   return `${property}_name`
 }
 
 export function Dict (lx) {
   return function (target, property) {
     target.constructor.addDescription(property, {
-      dict: true,
+      isDict: true,
       lx,
       setProperty (dict) {
         if (dict === null || dict === undefined || typeof dict === 'string') {

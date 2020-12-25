@@ -1,5 +1,9 @@
+/**
+ * Erpack-Form
+ */
+
 export default {
-  name: 'TgForm',
+  name: 'ErpackForm',
   props: {
     form: Object,
     labels: {

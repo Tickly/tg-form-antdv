@@ -1,3 +1,3 @@
-export { default as Form } from './Form'
-export { default as FormItem } from './FormItem'
+export { default as ErpackForm } from './Form'
+export { default as ErpackFormItem } from './FormItem'
 import './index.less'

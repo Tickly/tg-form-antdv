@@ -1,6 +1,7 @@
 import { Describable } from './class/Describable';
 import Descriptions from './Descriptions';
 import { Label } from './property/Label';
+import { getDictNameProperty } from './property/Dict'
 
 @Describable
 class Model {
@@ -47,9 +48,30 @@ class Model {
     }
   }
 
+  /**
+   * 获取字段文本映射
+   * @param {String} property 属性名称
+   */
   static getLabel (property) {
     let description = this.getDescription(property)
     if (description) return description.label
+  }
+
+  /**
+   * 获取字段是否为字典项
+   * @param {String} property 属性名称
+   */
+  static isDict (property) {
+    let description = this.getDescription(property)
+    if (description) return description.isDict
+  }
+
+  /**
+   * 获取字典项name的属性名称
+   * @param {String} property 属性名称
+   */
+  static getDictNameProperty (property) {
+    return getDictNameProperty(property)
   }
 }
 

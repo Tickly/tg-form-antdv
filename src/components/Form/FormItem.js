@@ -1,6 +1,9 @@
+/**
+ * ErpackFormItem
+ */
 
 export default {
-  name: 'TgFormItem',
+  name: 'ErpackFormItem',
   props: {
     attr: String,
     label: String,

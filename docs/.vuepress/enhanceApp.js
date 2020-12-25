@@ -1,10 +1,10 @@
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
-import TgForm from '../../src/main'
+import Erpack from '../../src/components'
 
 export default ({ Vue }) => {
   Vue.use(Antd)
-  Vue.use(TgForm)
+  Vue.use(Erpack)
 
   Vue.mixin({
     methods: {

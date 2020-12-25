@@ -55,7 +55,9 @@ module.exports = {
       },
       {
         title: 'ModelTable - 模型表格组件',
-        children: []
+        children: [
+          '/erpack-table/basic-usage'
+        ]
       },
 
     ]
