@@ -16,8 +16,7 @@ export function Dict (lx) {
       dict: true,
       lx,
       setProperty (dict) {
-
-        if (dict === null || typeof dict === 'string') {
+        if (dict === null || dict === undefined || typeof dict === 'string') {
           dict = { value: dict }
         }
 
