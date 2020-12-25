@@ -47,6 +47,12 @@ class Model {
       return parent.getDescription(property)
     }
   }
+
+  static getLabel(property) {
+    let description = this.getDescription(property)
+    if (description) return description.label
+  }
+
   // 添加一个验证规则
   static addRule(property, rule) {
     let target = this.prototype
@@ -57,15 +63,8 @@ class Model {
 
     target.rulesInstace.add(property, rule)
   }
-  
- 
-  static getLabel (property) {
-    let description = this.getDescription(property)
-    if (description) return description.label
-  }
-
-  get rules() {
-    let rules = this.rulesInstace || {}
+  static getRules() {
+    let rules = this.prototype.rulesInstace || {}
     function cloneRules(rules, target) {
       const parent = Object.getPrototypeOf(target)
       if (parent === Model) return rules
@@ -74,11 +73,14 @@ class Model {
       }
       return cloneRules(rules, parent)
     }
-    rules = cloneRules(rules, this.constructor)
+    rules = cloneRules(rules, this)
+    return rules
+  }
+
+  get rules() {
+    const rules = this.constructor.getRules()
     return this.rulesInstace.generateRules.call(this, rules)
-    
   }
 }
-
 
 export { Model }
