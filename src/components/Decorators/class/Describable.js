@@ -17,7 +17,7 @@ export function Describable (target) {
           // 如果有描述就根据描述的赋值规则走
           if (description) {
             // 如果是字典项
-            if (description.dict) {
+            if (description.isDict) {
               description.setProperty.call(this, value)
               break
             }
