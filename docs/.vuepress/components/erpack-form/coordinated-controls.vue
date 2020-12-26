@@ -1,21 +1,22 @@
 <template>
-  <tg-form ref="form" :form="form" :rules="rules" layout="horizontal">
-    <tg-form-item prop="note">
+  <erpack-form ref="form" :form="form" :rules="rules" layout="horizontal">
+    <erpack-form-item prop="note">
       <a-input v-model="form.note" />
-    </tg-form-item>
-    <tg-form-item prop="gender">
-      <a-select v-model="form.gender" @change="handleSelectChange" placeholder="Select a option and change input text above">
+    </erpack-form-item>
+    <erpack-form-item prop="gender">
+      <a-select v-model="form.gender" placeholder="Select a option and change input text above" @change="handleSelectChange">
         <a-select-option value="male">male</a-select-option>
         <a-select-option value="female">female</a-select-option>
       </a-select>
-    </tg-form-item>
+    </erpack-form-item>
 
-    <tg-form-item>
+    <erpack-form-item>
       <a-button @click="handleSubmit">提交</a-button>
-    </tg-form-item>
-  </tg-form>
+    </erpack-form-item>
+  </erpack-form>
 </template>
 <script>
+import '@root'
 export default {
   data () {
     return {

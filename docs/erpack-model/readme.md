@@ -1,4 +1,4 @@
-# Model
+# ErpackModel
 
 ```js
 class Model {}
@@ -73,7 +73,7 @@ let user = new User(data)
 指定该字段为字典项。
 
 ### 表单验证
-- Reuired 指定该字段为必填项 支持传入函数 比如该字段的必填规则受其他字段影响
+- Required 指定该字段为必填项 支持传入函数 比如该字段的必填规则受其他字段影响
 - Length 指定字段最大输入长度
 
 

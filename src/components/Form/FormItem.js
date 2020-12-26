@@ -5,7 +5,14 @@
 export default {
   name: 'ErpackFormItem',
   props: {
-    attr: String,
+    /**
+     * 属性名称
+     */
+    prop: String,
+
+    /**
+     * 文本描述
+     */
     label: String,
 
     labelCol: { type: Number, default: 6 },
@@ -15,15 +22,34 @@ export default {
     }
   },
   inject: {
-    form: 'tgForm'
+    form: 'ErpackForm'
   },
   computed: {
+    /**
+     * 最终用到的label
+     * 
+     * 先判断有没有直接指定label
+     * 如果没有指定，再看form是不是Model的实例，然后从定义里面去获取
+     * 如果取不到，就用prop作为名称
+     */
     _label () {
       let label = this.label
 
-      if (label === undefined) {
-        label = this.form.labels[this.attr] || this.attr
-      }
+      do {
+        if (label) break
+
+        if (this.form) {
+          if (this.form.isModel) {
+
+            label = this.form.form.constructor.getLabel(this.prop)
+            
+            if (label) break
+          }
+        }
+
+        label = this.prop
+
+      } while (false)
 
       return label
     },

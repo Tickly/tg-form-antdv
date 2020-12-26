@@ -11,7 +11,17 @@ export const ErpackTable = {
       type: String,
       default: 'id',
     },
+    /**
+     * 模型的class，定义了此参数之后，可大大简化编码。
+     */
     ModelClass: Function,
+    /**
+     * 开启表格选择功能
+     * true 单选
+     * false 多选
+     * undefined 不选 [默认]
+     */
+    single: Boolean,
   },
   data () {
     return {
@@ -69,12 +79,24 @@ export const ErpackTable = {
     console.log(this)
   },
   render (h) {
-    return h('a-table', {
-      props: {
-        columns: this.tableColumns,
-        dataSource: this.tableDataSource,
-        rowKey: this.rowKey,
+    let props = {
+      columns: this.tableColumns,
+      dataSource: this.tableDataSource,
+      rowKey: this.rowKey,
+    }
+
+    // 如果single传了参数，就表示要开启选择
+    if (typeof this.single === 'boolean') {
+      props.rowSelection = {
+        type: this.single ? 'radio' : 'checkbox',
+        onChange: (selectedRowKeys, selectedRows) => {
+          this.$emit('selection-change', selectedRowKeys, selectedRows)
+        }
       }
+    }
+
+    return h('a-table', {
+      props
     })
   },
   methods: {

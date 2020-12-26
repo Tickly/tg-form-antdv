@@ -5,7 +5,6 @@
  */
 export function Label (label) {
   return function (target, property) {
-    console.log('Label')
     const description = {
       label
     }

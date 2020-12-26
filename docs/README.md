@@ -1,22 +1,53 @@
-# tg-form-antdv
+# erpack
 
-`tg-form-antdv` 是一个基于 [ant-design-vue](https://www.antdv.com/components/form-cn/) 与 [tg-validators](https://github.com/Tickly/tg-validators) 封装的表单组件
+`erpack` 是一个基于 [ant-design-vue](https://www.antdv.com/components/form-cn/) 组件库的扩展组件库。  
+主要针对`后台管理系统`类型的项目，即包含大量的`表单`,`表格`组件的项目。  
+简化了数据处理，以及表单组件与表格组件代码的编写。
 
-## 干什么的
+## 如何简化
 
-简化了表单验证规则的编写，只需定义字段名称与验证器类型，无需手写错误提示。
+### 模拟一个需求场景
 
-## 安装
+假设我们现在有个`用户管理系统`，有个页面是可以查询用户列表的，那么用户表比如说有`name`(姓名)、`gender`(性别)、`hobbies`(爱好)等字段。
 
-### npm
-`npm i tg-form-antdv`
-### yarn
-`yarn add tg-form-antdv`
+在我们新增用户的时候，`name`是通过文本框输入的，`gender`是通过字典项单选的，`hobbies`是通过字典项多选的。
 
-## todo
+那么，我们从接口拿到用户数据可能是这个样子的。
 
-- 目前是数据变动就自动触发验证，考虑加入trigger属性配置，可以指定是change还是blur时触发。
+```json
+{
+  "name": "小明",
+  "gender": {
+    "value": 0,
+    "name": "男"
+  },
+  "hobbies": [
+    { "value": 0, "name": "编程" },
+    { "value": 2, "name": "学习" }
+  ]
+}
+```
 
-## 备注
+那么我们用户列表的页面，会包含两个基本组件，一个是查询表单，一个是数据表格。
 
-文档不够完善多多包涵，如果有人感兴趣可以一起交流。
+查询表单的代码可能是这样
+```vue
+<template>
+  <a-form-model>
+    <a-form-model-item prop="name" label="姓名">
+      <a-input />
+    </a-form-model-item>
+    <a-form-model-item prop="gender" label="性别">
+      <a-input />
+    </a-form-model-item>
+    <a-form-model-item prop="hobbies" label="爱好">
+      <a-input />
+    </a-form-model-item>
+  </a-form-model-ite>
+</template>
+```
+
+数据表格的代码可能是这样
+```vue
+
+```

@@ -1,43 +1,44 @@
+const path = require('path')
+
 module.exports = {
-  base: '/tg-form-antdv/',
-  title: 'tg-form-antdv',
+  base: '/erpack/',
+  title: 'erpack',
   description: 'Just playing around',
   themeConfig: {
     sidebar: [
       '/',
+      // 模型
       {
-        title: 'Model - 模型',
+        title: 'ErpackModel - 模型',
         children: [
-          '/model',
-          {
-            title: '类装饰器', children: [
-              '/decorators/class/describable'
-            ]
-          },
+          '/erpack-model/',
+          // {
+          //   title: '类装饰器', children: [
+          //     '/erpack-model/decorators/class/describable'
+          //   ]
+          // },
           {
             title: '属性装饰器', children: [
-              '/decorators/property/label'
+              '/erpack-model/decorators/property/label',
+              '/erpack-model/decorators/property/dict',
             ]
           },
         ]
       },
+      // 表单
       {
-        title: 'ModelForm - 模型表单组件',
+        title: 'ErpackForm - 表单组件',
         children: [
-          '/model-form',
-          {
-            title: '示例',
-            children: [
-              '/basic',
-              '/coordinated-controls',
-              '/dynamic-rules',
-              '/inline-login-form',
-              '/form-layout',
-              '/dynamic-form-item',
+          '/erpack-form/',
 
-              '/customized-form-controls'
-            ]
-          },
+          '/erpack-form/basic-usage',
+          '/erpack-form/coordinated-controls',
+          '/dynamic-rules',
+          '/inline-login-form',
+          '/form-layout',
+          '/dynamic-form-item',
+
+          '/customized-form-controls',
           {
             title: '表单验证',
             children: [
@@ -53,14 +54,23 @@ module.exports = {
           }
         ]
       },
+      // 表格
       {
-        title: 'ModelTable - 模型表格组件',
+        title: 'ErpackTable - 表格组件',
         children: [
-          '/erpack-table/basic-usage'
+          '/erpack-table/',
+          '/erpack-table/basic-usage',
+          '/erpack-table/selection',
         ]
       },
 
     ]
   },
-
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@root': path.join(__dirname)
+      }
+    }
+  }
 }

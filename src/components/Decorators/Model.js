@@ -5,14 +5,12 @@ import { getDictNameProperty } from './property/Dict'
 import { Describable } from './class/Describable'
 import Rules from './Rules'
 import { Required } from './property/Required'
+
+
 @Describable
 class Model {
   @Label('主键id')
   zjid
-
-  static abc () {
-    return this
-  }
 
   /**
    * 添加一个属性描述
@@ -34,7 +32,7 @@ class Model {
    * @param {String} property 属性名称
    */
   static getDescription (property) {
-    console.log('getDescription', property, this.prototype.descriptions)
+    // console.log('getDescription', property, this.prototype.descriptions)
 
     let descriptions = this.prototype.descriptions
 

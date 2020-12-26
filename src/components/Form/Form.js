@@ -1,10 +1,15 @@
 /**
  * Erpack-Form
  */
+import { Model } from '../Decorators/Model'
+
 
 export default {
   name: 'ErpackForm',
   props: {
+    /**
+     * 数据实例
+     */
     form: Object,
     labels: {
       type: Object,
@@ -36,11 +41,14 @@ export default {
   computed: {
     hasErrors () {
       return Object.keys(this.errors).length > 0
+    },
+    isModel () {
+      return this.form instanceof Model
     }
   },
   provide () {
     return {
-      tgForm: this
+      ErpackForm: this
     }
   },
   render (h) {
