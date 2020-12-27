@@ -1,11 +1,29 @@
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
-import Erpack from '../../src/components'
 
-import { Model, Label, Describable, Dict } from '../../src/components'
+import Erpack, { ErpackModel, Label, Describable, Dict } from '../../src/components'
+
+const GenderSelect = {
+  name: 'GenderSelect',
+  render (h) {
+    return h('a-select', {
+      props: {
+        options: [
+          { label: '男', value: 0 },
+          { label: '女', value: 1 },
+        ]
+      },
+      on: {
+        change: (value) => {
+          this.$emit('change', value)
+        }
+      }
+    })
+  }
+}
 
 @Describable
-class User extends Model {
+class User extends ErpackModel {
 
   @Label('姓名')
   name
@@ -25,6 +43,8 @@ export default ({ Vue }) => {
   Vue.use(Erpack)
 
   Vue.prototype.UserClass = User
+
+  Vue.component(GenderSelect.name, GenderSelect)
 
   Vue.mixin({
     data () {

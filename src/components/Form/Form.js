@@ -1,7 +1,7 @@
 /**
  * Erpack-Form
  */
-import { Model } from '../Decorators/Model'
+import { ErpackModel } from '../Model'
 
 
 export default {
@@ -19,6 +19,10 @@ export default {
       type: Array,
       default: () => []
     },
+    layout: {
+      type: String,
+      default: 'inline'
+    },
     /**
      * 表示一列显示几个FormItem，如果不设置，或者0，则使用layout布局
      */
@@ -34,7 +38,6 @@ export default {
   },
   data () {
     return {
-      model: null,
       errors: {},
     }
   },
@@ -43,7 +46,7 @@ export default {
       return Object.keys(this.errors).length > 0
     },
     isModel () {
-      return this.form instanceof Model
+      return this.form instanceof ErpackModel
     }
   },
   provide () {
@@ -53,24 +56,28 @@ export default {
   },
   render (h) {
     let props = {
-
+      layout: this.layout,
+      model: this.form,
     }
 
-    props.layout = 'inline'
+    if (props.layout === 'inline') {
+      if (this.columns) {
 
-    if (this.columns) {
-
+      }
     }
-    return <div class="model-form">
-      <a-form {...{ props }}>
+
+    if (this.isModel) {
+      props.rules = this.form.rules
+    }
+
+    return <div class="erpack-form">
+      <a-form-model {...{ props }}>
         {this.$slots.default}
-      </a-form>
+      </a-form-model>
     </div>
 
   },
-  created () {
-    console.log(this.columns)
-  },
+  created () { },
   methods: {
     /**
      * 解析属性列表

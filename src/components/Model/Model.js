@@ -1,14 +1,11 @@
 import Descriptions from './Descriptions'
-import { Label } from './property/Label'
-import { getDictNameProperty } from './property/Dict'
+import { Describable, Label, getDictNameProperty } from './Decorators'
 
-import { Describable } from './class/Describable'
 import Rules from './Rules'
-import { Required } from './property/Required'
 
 
 @Describable
-class Model {
+class ErpackModel {
   @Label('主键id')
   zjid
 
@@ -89,7 +86,7 @@ class Model {
     let rules = this.prototype.rulesInstace || {}
     function cloneRules (rules, target) {
       const parent = Object.getPrototypeOf(target)
-      if (parent === Model) return rules
+      if (parent === ErpackModel) return rules
       if (parent.prototype && parent.prototype.rulesInstace) {
         rules = Object.assign({}, parent.prototype.rulesInstace, rules)
       }
@@ -103,7 +100,7 @@ class Model {
     const rules = this.constructor.getRules()
     return this.rulesInstace.generateRules.call(this, rules)
   }
-  
+
 }
 
-export { Model }
+export { ErpackModel }

@@ -14,12 +14,18 @@ export default {
      * 文本描述
      */
     label: String,
+    /**
+     * 表示该Item没有label
+     * 当为true的时候，会自动添加一个空的label，为了让slot与其他有label的保持一致
+     * 比如slot为按钮
+     */
+    noLabel: Boolean,
 
     labelCol: { type: Number, default: 6 },
     colSpan: {
       type: Number,
       default: 1,
-    }
+    },
   },
   inject: {
     form: 'ErpackForm'
@@ -42,7 +48,7 @@ export default {
           if (this.form.isModel) {
 
             label = this.form.form.constructor.getLabel(this.prop)
-            
+
             if (label) break
           }
         }
@@ -77,6 +83,7 @@ export default {
   },
   render (h) {
     let props = {
+      prop: this.prop,
       label: this._label,
       colon: !this.$slots.label,
       required: this.isRequired,
@@ -84,23 +91,28 @@ export default {
       ...this.$attrs,
     }
     let style = {}
-    if (this.form.columns) {
-      style.width = (100 / this.form.columns * this.colSpan).toFixed(2) + '%'
-      props.labelCol = { span: this.labelCol }
-      props.wrapperCol = { span: 24 - this.labelCol }
+
+    // 自动计算 labelCol
+    if (this.form.layout === 'inline') {
+      if (this.form.columns) {
+        style.width = (100 / this.form.columns * this.colSpan).toFixed(2) + '%'
+        props.labelCol = { span: this.labelCol }
+        props.wrapperCol = { span: 24 - this.labelCol }
+      }
     }
 
-    return h(
-      'a-form-item',
-      {
-        class: 'model-form-item',
-        props,
-        style,
-      },
-      [
-        this.$slots.label ? h('template', { slot: 'label' }, this.$slots.label) : null,
-        this.$slots.default
-      ]
-    )
+    if (this.noLabel) {
+      props.label = ' '
+      props.colon = false
+    }
+
+    return h('a-form-model-item', {
+      class: 'erpack-form-item',
+      props,
+      style,
+    }, [
+      this.$slots.label ? h('template', { slot: 'label' }, this.$slots.label) : null,
+      this.$slots.default
+    ])
   }
 }

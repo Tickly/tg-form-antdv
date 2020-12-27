@@ -1,4 +1,5 @@
-export * from './Decorators'
+export * from './Model'
+
 import { ErpackTable } from './Table'
 import { ErpackForm, ErpackFormItem } from './Form'
 

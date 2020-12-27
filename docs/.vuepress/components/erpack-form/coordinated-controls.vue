@@ -1,32 +1,33 @@
 <template>
-  <erpack-form ref="form" :form="form" :rules="rules" layout="horizontal">
+  <erpack-form ref="form" :form="form">
     <erpack-form-item prop="note">
       <a-input v-model="form.note" />
     </erpack-form-item>
     <erpack-form-item prop="gender">
-      <a-select v-model="form.gender" placeholder="Select a option and change input text above" @change="handleSelectChange">
-        <a-select-option value="male">male</a-select-option>
-        <a-select-option value="female">female</a-select-option>
-      </a-select>
+      <GenderSelect v-model="form.gender" @change="handleSelectChange" />
     </erpack-form-item>
-
     <erpack-form-item>
       <a-button @click="handleSubmit">提交</a-button>
     </erpack-form-item>
   </erpack-form>
 </template>
 <script>
-import '@root'
+
+import { ErpackModel, Label } from 'erpack'
+
+class Model extends ErpackModel {
+  @Label('Note')
+  note
+
+  @Label('Gender')
+  gender
+}
+
+
 export default {
   data () {
     return {
-      form: {
-        note: '',
-        gender: undefined
-      },
-      rules: [
-        ['required', ['note', 'gender']]
-      ],
+      form: new Model(),
     }
   },
   methods: {
@@ -34,7 +35,7 @@ export default {
       this.$refs.form.validate()
     },
     handleSelectChange (value) {
-      this.form.note = `Hi, ${value === 'male' ? 'man' : 'lady'}!`
+      this.form.note = `Hi, ${value === 0 ? 'man' : 'lady'}!`
     }
   }
 }
