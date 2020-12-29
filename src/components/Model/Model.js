@@ -110,7 +110,8 @@ class ErpackModel {
    */
   get rules() {
     const rules = this.constructor.getRules()
-    return this.rulesInstace.generateRules.call(this, rules)
+    
+    return this.rulesInstace?.generateRules.call(this, rules)
   }
   /**
    * 获取搜索项
