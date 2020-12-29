@@ -3,7 +3,6 @@ import { Describable, Label, getDictNameProperty } from './Decorators'
 
 import Rules from './Rules'
 
-
 @Describable
 class ErpackModel {
   @Label('主键id')
@@ -14,7 +13,7 @@ class ErpackModel {
    * @param {String} property 属性名称
    * @param {Object} description 描述
    */
-  static addDescription (property, description) {
+  static addDescription(property, description) {
     let target = this.prototype
 
     if (!target.hasOwnProperty('descriptions')) {
@@ -28,7 +27,7 @@ class ErpackModel {
    * 获取一个属性描述
    * @param {String} property 属性名称
    */
-  static getDescription (property) {
+  static getDescription(property) {
     // console.log('getDescription', property, this.prototype.descriptions)
 
     let descriptions = this.prototype.descriptions
@@ -49,7 +48,7 @@ class ErpackModel {
    * 获取字段文本映射
    * @param {String} property 属性名称
    */
-  static getLabel (property) {
+  static getLabel(property) {
     let description = this.getDescription(property)
     if (description) return description.label
   }
@@ -58,7 +57,7 @@ class ErpackModel {
    * 获取字段是否为字典项
    * @param {String} property 属性名称
    */
-  static isDict (property) {
+  static isDict(property) {
     let description = this.getDescription(property)
     if (description) return description.isDict
   }
@@ -67,12 +66,17 @@ class ErpackModel {
    * 获取字典项name的属性名称
    * @param {String} property 属性名称
    */
-  static getDictNameProperty (property) {
+  static getDictNameProperty(property) {
     return getDictNameProperty(property)
   }
 
-  // 添加一个验证规则
-  static addRule (property, rule) {
+  /**
+   * 添加一个验证规则
+   *
+   * @param {String} property 属性名称
+   * @param {Object} rule 验证规则
+   */
+  static addRule(property, rule) {
     let target = this.prototype
 
     if (!target.hasOwnProperty('rulesInstace')) {
@@ -81,10 +85,13 @@ class ErpackModel {
 
     target.rulesInstace.add(property, rule)
   }
-
-  static getRules () {
+  /**
+   * 获取模型上的验证规则
+   *
+   */
+  static getRules() {
     let rules = this.prototype.rulesInstace || {}
-    function cloneRules (rules, target) {
+    function cloneRules(rules, target) {
       const parent = Object.getPrototypeOf(target)
       if (parent === ErpackModel) return rules
       if (parent.prototype && parent.prototype.rulesInstace) {
@@ -95,12 +102,29 @@ class ErpackModel {
     rules = cloneRules(rules, this)
     return rules
   }
-
-  get rules () {
+  /**
+   * 规则与实例的绑定
+   *
+   * @readonly
+   * @memberof ErpackModel
+   */
+  get rules() {
     const rules = this.constructor.getRules()
     return this.rulesInstace.generateRules.call(this, rules)
   }
-
+  /**
+   * 获取搜索项
+   *
+   * @param {String} proprety
+   */
+  static getQuery(proprety) {
+    let description = this.getDescription(proprety)
+    if (description) {
+      const { queryOptions, setProperty, ...options } = description
+      return Object.assign(options, queryOptions, {prop: proprety})
+    }
+    return {}
+  }
 }
 
 export { ErpackModel }

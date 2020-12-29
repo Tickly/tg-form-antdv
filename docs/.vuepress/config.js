@@ -37,6 +37,7 @@ module.exports = (options, context) => {
             '/erpack-form/coordinated-controls',
             '/erpack-form/dynamic-rules',
             '/dynamic-form-item',
+            '/erpack-form/search',
 
             '/customized-form-controls',
             {
