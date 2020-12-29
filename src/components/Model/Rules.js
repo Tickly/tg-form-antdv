@@ -23,7 +23,11 @@ export default class Rules {
         for (const key in item) {
           const element = item[key]
           if (typeof element === 'function') {
-            rule[index][key] = element.call(this)
+            if(key === 'validator') {
+              rule[index][key] = element.bind(this)
+            }else {
+              rule[index][key] = element.call(this)
+            }
           }
         }
       }
