@@ -31,11 +31,12 @@ module.exports = {
         children: [
           '/erpack-form/',
 
-          // '/erpack-form/basic-usage',
-          // '/erpack-form/coordinated-controls',
-          // '/erpack-form/dynamic-rules',
+          '/erpack-form/basic-usage',
+          '/erpack-form/coordinated-controls',
+          '/erpack-form/dynamic-rules',
+          '/dynamic-form-item',
+          '/erpack-form/search',
 
-          // '/dynamic-form-item',
           // '/customized-form-controls',
           // {
           //   title: '表单验证',
