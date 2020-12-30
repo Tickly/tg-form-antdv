@@ -8,4 +8,5 @@
 | dataSource | 数据数组 | Array
 | rowKey | 表格行 key 的取值 | String | 'id'
 | ModelClass | 模型的class | Model
-| single | 开启表格选择功能。true-单选。false-多选。undefined-不选。 | Boolean,undefined | undefined
+| selectable | 是否开启选择功能 | Boolean | false
+| single | 是否为单选，表格默认多选。仅当selectable为true时有效。 | Boolean | false

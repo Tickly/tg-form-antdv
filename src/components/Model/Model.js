@@ -96,9 +96,15 @@ class ErpackModel {
     return rules
   }
 
+  /**
+   * 
+   */
   get rules () {
     const rules = this.constructor.getRules()
-    return this.rulesInstace.generateRules.call(this, rules)
+    if (Object.keys(rules).length) {
+      return this.rulesInstace.generateRules.call(this, rules)
+    }
+    return {}
   }
 
 }

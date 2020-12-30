@@ -16,10 +16,13 @@ export const ErpackTable = {
      */
     ModelClass: Function,
     /**
-     * 开启表格选择功能
+     * 是否允许选择，默认不开启
+     */
+    selectable: Boolean,
+    /**
+     * 是否为单选表格，默认多选
      * true 单选
-     * false 多选
-     * undefined 不选 [默认]
+     * false 多选 [默认]
      */
     single: Boolean,
   },
@@ -85,8 +88,7 @@ export const ErpackTable = {
       rowKey: this.rowKey,
     }
 
-    // 如果single传了参数，就表示要开启选择
-    if (typeof this.single === 'boolean') {
+    if (this.selectable) {
       props.rowSelection = {
         type: this.single ? 'radio' : 'checkbox',
         onChange: (selectedRowKeys, selectedRows) => {
