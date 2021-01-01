@@ -58,11 +58,18 @@ module.exports = {
         title: 'ErpackTable - 表格组件',
         children: [
           '/erpack-table/',
-          
+
           '/erpack-table/basic-usage',
           '/erpack-table/selection',
         ]
       },
+      // 
+      {
+        title: 'Mixins',
+        children: [
+          '/mixins/list'
+        ]
+      }
 
     ]
   },
