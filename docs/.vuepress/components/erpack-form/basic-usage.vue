@@ -4,7 +4,7 @@
       <a-input v-model="form.name" />
     </erpack-form-item>
     <erpack-form-item prop="gender">
-      <a-input v-model="form.gender" />
+      <GenderSelect v-model="form.gender" />
     </erpack-form-item>
     <erpack-form-item style="padding-left: 2em">
       <a-button type="primary" @click="handleSubmit">登录</a-button>
@@ -12,11 +12,19 @@
   </erpack-form>
 </template>
 <script>
+import { ErpackModel, Label } from 'erpack'
+class Model extends ErpackModel {
+  @Label('姓名')
+  name
+
+  @Label('性别')
+  gender
+}
+
 export default {
   data () {
     return {
-      // 这是你的表单数据
-      form: new this.UserClass(),
+      form: new Model(),
     }
   },
   methods: {

@@ -1,7 +1,10 @@
 export const ErpackSearch = {
   name: 'ErpackSearch',
   props: {
-    items: Array,
+    items: {
+      type: Array,
+      default: () => []
+    },
     Model: Function,
     columns: {
       type: Number,
@@ -16,14 +19,14 @@ export const ErpackSearch = {
       default: true,
     },
   },
-  data() {
+  data () {
     return {
       searchParams: {},
       advanced: true,
     }
   },
   computed: {
-    className() {
+    className () {
       if (this.showItemNum > this.items.length && this.advanced)
         return 'page-search-wrap'
       if (this.showItemNum <= this.items.length && !this.advanced)
@@ -35,13 +38,13 @@ export const ErpackSearch = {
       if(!this.$refs.action) return 0
     }
   },
-  mounted() {
+  mounted () {
     if (this.toggle && this.showItemNum <= this.items.length) {
       this.toggleAdvanced()
     }
   },
   methods: {
-    renderItem(h, item) {
+    renderItem (h, item) {
       // const config = {}
       const config =
         typeof item === 'string'
@@ -80,8 +83,7 @@ export const ErpackSearch = {
         ]
       )
     },
-    renderActions() {
-      
+    renderActions () {
       return (
         <div class="search-action" style="float: right" ref="action">
           <a-space>
@@ -95,13 +97,13 @@ export const ErpackSearch = {
                 <a-icon type={this.advanced ? 'up' : 'down'} />
               </a>
             ) : (
-              ''
-            )}
+                ''
+              )}
           </a-space>
         </div>
       )
     },
-    toggleAdvanced() {
+    toggleAdvanced () {
       this.advanced = !this.advanced
       this.$refs.itemRefs.forEach(({ $el }, index) => {
         switch (this.toggle) {
@@ -118,18 +120,18 @@ export const ErpackSearch = {
         }
       })
     },
-    search() {
+    search () {
       this.emit()
     },
-    reset() {
+    reset () {
       this.searchParams = {}
       this.emit()
     },
-    emit() {
+    emit () {
       this.$emit('search', this.searchParams)
     },
   },
-  render(h) {
+  render (h) {
     return h(
       'erpack-form',
       {

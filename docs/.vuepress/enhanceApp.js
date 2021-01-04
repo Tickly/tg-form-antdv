@@ -17,6 +17,9 @@ const GenderSelect = {
         change: (value) => {
           this.$emit('change', value)
         }
+      },
+      style: {
+        width: '140px'
       }
     })
   }

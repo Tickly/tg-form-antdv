@@ -2,11 +2,71 @@
  * Erpack-Table
  */
 
+import ActionColumn from './columns/ActionColumn'
+import Column from './columns/Column'
+import TextColumn from './columns/TextColumn'
+
+const Columns = {
+  text: TextColumn,
+  action: ActionColumn,
+}
+
+/**
+ * 
+ * @param {String,Object} columnConfig 
+ * @param {ErpackModel} Model
+ * @returns {Column}
+ */
+const ColumnParser = (columnConfig, Model) => {
+
+  // 支持字符串快速写法
+  if ('string' === typeof columnConfig) {
+    columnConfig = {
+      type: 'text',
+      prop: columnConfig
+    }
+  }
+
+  let { type, prop, label, ...other } = columnConfig
+
+  // 如果没有设置title，就要自动设置一个title
+  if (!label) {
+    label = getModelLabel(Model, prop)
+  }
+
+  // 如果是字典项，将属性替换为字典项name
+  if (Model && Model.isDict(prop)) {
+    prop = Model.getDictNameProperty(prop)
+  }
+
+  return new Columns[type]({
+    label, prop, ...other
+  })
+}
+
+/**
+ * 获取模型的label
+ * @param {ErpackModel} model 
+ * @param {String} prop 
+ */
+const getModelLabel = (model, prop) => {
+  if (model) {
+    return model.getLabel(prop) || prop
+  }
+  return prop
+}
+
 export const ErpackTable = {
   name: 'ErpackTable',
   props: {
-    columns: Array,
-    dataSource: Array,
+    columns: {
+      type: Array,
+      default: () => []
+    },
+    dataSource: {
+      type: Array,
+      default: () => []
+    },
     rowKey: {
       type: String,
       default: 'id',
@@ -16,64 +76,54 @@ export const ErpackTable = {
      */
     ModelClass: Function,
     /**
-     * 开启表格选择功能
+     * 是否允许选择，默认不开启
+     */
+    selectable: Boolean,
+    /**
+     * 是否为单选表格，默认多选
      * true 单选
-     * false 多选
-     * undefined 不选 [默认]
+     * false 多选 [默认]
      */
     single: Boolean,
   },
   data () {
     return {
       tableDataSource: [],
+
+      /**
+       * 存放当前表格选中的数据id
+       */
+      selectedRowKeys: [],
+      /**
+       * 存放当前表格选中的数据
+       */
+      selectedRows: [],
     }
   },
   computed: {
     tableColumns () {
-      return this.columns.map(col => {
-        if (typeof col === 'string') {
-          col = {
-            dataIndex: col
-          }
-        }
+      let columns = []
 
-        // 处理title
-        if (!Reflect.has(col, 'title')) {
-          if (this.ModelClass) {
-            col.title = this.ModelClass.getLabel(col.dataIndex)
-          } else {
-            col.title = col.dataIndex
-          }
-        }
+      for (const config of this.columns) {
+        if (!config) continue
 
-        // 处理字典项
+        // 解析成Column对象
+        let column = ColumnParser(config, this.ModelClass)
+
+        columns.push(column.to(this.$createElement))
+      }
+
+      return columns
+    },
+    tableData () {
+      return this.dataSource.map(row => {
         if (this.ModelClass) {
-          // 如果是字典项，将属性替换为字典项name
-          if (this.ModelClass.isDict(col.dataIndex)) {
-            col.dataIndex = this.ModelClass.getDictNameProperty(col.dataIndex)
-          }
+          return new this.ModelClass(row)
         }
 
-        return col
+        return row
       })
     },
-  },
-  watch: {
-    dataSource: {
-      /**
-       * @param {Array} dataSource
-       */
-      handler (dataSource) {
-        this.tableDataSource = dataSource.map(row => {
-          if (this.ModelClass) {
-            return new this.ModelClass(row)
-          }
-
-          return row
-        })
-      },
-      immediate: true
-    }
   },
   created () {
     console.log(this)
@@ -81,15 +131,16 @@ export const ErpackTable = {
   render (h) {
     let props = {
       columns: this.tableColumns,
-      dataSource: this.tableDataSource,
+      dataSource: this.tableData,
       rowKey: this.rowKey,
     }
 
-    // 如果single传了参数，就表示要开启选择
-    if (typeof this.single === 'boolean') {
+    if (this.selectable) {
       props.rowSelection = {
         type: this.single ? 'radio' : 'checkbox',
         onChange: (selectedRowKeys, selectedRows) => {
+          console.log(selectedRowKeys, selectedRows)
+
           this.$emit('selection-change', selectedRowKeys, selectedRows)
         }
       }
