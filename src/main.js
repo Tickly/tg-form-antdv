@@ -3,7 +3,7 @@ import { Label } from './components/Decorators/property/Label'
 import { Required } from './components/Decorators/property/Required'
 import { Length } from './components/Decorators/property/Length'
 import { Form, FormItem } from './components/Form'
-
+import {Query} from './components/Model/Decorators/property/Quey'
 
 console.log(Model.getLabel('zjid'))
 // console.log(Model.prototype)
@@ -11,7 +11,7 @@ console.log(Model.getLabel('zjid'))
 class User extends Model {
   
   name = 1
-  
+  @Query()
   @Required(function() {
     return this.age > 10
   })

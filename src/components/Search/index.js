@@ -30,6 +30,10 @@ export const ErpackSearch = {
         return 'page-search-nowrap'
       return 'page-search-wrap'
     },
+    actionWidth() {
+      console.log(this.$refs)
+      if(!this.$refs.action) return 0
+    }
   },
   mounted() {
     if (this.toggle && this.showItemNum <= this.items.length) {
@@ -77,8 +81,9 @@ export const ErpackSearch = {
       )
     },
     renderActions() {
+      
       return (
-        <div class="search-action" style="float: right">
+        <div class="search-action" style="float: right" ref="action">
           <a-space>
             <a-button type="primary" onClick={() => this.search()}>
               搜索
@@ -131,6 +136,7 @@ export const ErpackSearch = {
         props: {
           columns: this.columns,
           form: new this.Model(),
+          noValidate: true
         },
         class: 'search-from',
       },

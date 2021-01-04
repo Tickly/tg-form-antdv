@@ -34,7 +34,9 @@ export default {
     showHelp: {
       type: Boolean,
       default: true
-    }
+    },
+    // 是否需要显示验证规则
+    noValidate: Boolean,
   },
   data () {
     return {
@@ -66,7 +68,7 @@ export default {
       }
     }
 
-    if (this.isModel) {
+    if (this.isModel && !this.noValidate) {
       props.rules = this.form.rules
     }
 

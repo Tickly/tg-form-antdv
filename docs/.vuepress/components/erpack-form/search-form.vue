@@ -1,6 +1,6 @@
 <template>
   <div>
-    <erpack-search :model="Model" :items="searchItems" />
+    <erpack-search :model="Model" :items="searchItems" @search="search" />
   </div>
 </template>
 <script>
@@ -15,6 +15,9 @@ class Model extends ErpackModel {
   @Query('gender-select')
   @Label('性别')
   gender
+
+  @Query('my-date-picker', {range: true})
+  date
 }
 export default {
   data() {
@@ -28,7 +31,12 @@ export default {
         {label: '体重', prop: 'weight'},
       ]
     }
-  }
+  },
+  methods: {
+    search(v) {
+      console.log(v)
+    }
+  },
 }
 </script>
 <style>

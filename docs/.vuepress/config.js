@@ -23,6 +23,7 @@ module.exports = (options, context) => {
               title: '属性装饰器', children: [
                 '/erpack-model/decorators/property/label',
                 '/erpack-model/decorators/property/dict',
+                '/erpack-model/decorators/property/rule',
               ]
             },
           ]

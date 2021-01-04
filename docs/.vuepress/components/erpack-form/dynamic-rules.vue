@@ -3,6 +3,9 @@
     <erpack-form-item prop="name">
       <a-input v-model="form.name" placeholder="Please input your name" />
     </erpack-form-item>
+    <erpack-form-item prop="phone">
+      <a-input v-model="form.phone" placeholder="Please input your phone number" />
+    </erpack-form-item>
     <erpack-form-item prop="nickname">
       <a-input
         v-model="form.nickname"
@@ -29,7 +32,7 @@
 </template>
 <script>
 
-import { ErpackModel, Label, Required, Length, Validator, NoEmptyItem } from 'erpack'
+import { ErpackModel, Label, Required, Length, Validator, NoEmptyItem, Phone } from 'erpack'
 
 const Loves = {
   props: {
@@ -88,6 +91,11 @@ class Model extends ErpackModel {
 
   @NoEmptyItem()
   loves = []
+
+  @Phone()
+  @Required()
+  @Label('手机号码')
+  phone
 }
 
 export default {
