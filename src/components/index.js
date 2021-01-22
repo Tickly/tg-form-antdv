@@ -2,12 +2,16 @@ export * from './Model'
 
 import { ErpackTable } from './Table'
 import { ErpackForm, ErpackFormItem } from './Form'
-import {ErpackSearch} from './Search'
+import { ErpackSearch } from './Search'
 
-export default {
+
+export {
   ErpackTable,
   ErpackForm, ErpackFormItem,
   ErpackSearch,
+}
+
+export default {
   install (Vue) {
     Vue.component(ErpackTable.name, ErpackTable)
 

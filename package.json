@@ -1,10 +1,10 @@
 {
-  "name": "tg-form-antdv",
+  "name": "erpack",
   "version": "0.2.4",
-  "main": "dist/tg-form-antdv.common.js",
+  "main": "dist/index.common.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name tg-form-antdv src/main.js",
+    "build": "vue-cli-service build --target lib --name index src/components/index.js",
     "lint": "vue-cli-service lint",
     "deploy": "bash deploy.sh",
     "docs:build": "vuepress build docs",
