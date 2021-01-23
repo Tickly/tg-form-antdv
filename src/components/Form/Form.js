@@ -3,7 +3,6 @@
  */
 import { ErpackModel } from '../Model'
 
-
 export default {
   name: 'ErpackForm',
   props: {
@@ -11,10 +10,6 @@ export default {
      * 数据实例
      */
     form: Object,
-    labels: {
-      type: Object,
-      default: () => ({})
-    },
     rules: {
       type: Array,
       default: () => []
@@ -24,7 +19,14 @@ export default {
       default: 'inline'
     },
     /**
-     * 表示一列显示几个FormItem，如果不设置，或者0，则使用layout布局
+     * 统一给文本设置宽度
+     */
+    labelWidth: {
+      type: String,
+      default: '10em'
+    },
+    /**
+     * 表示一列显示几个FormItem，如果不设置，或者0，则使用inline布局
      */
     columns: Number,
     /**
@@ -58,22 +60,22 @@ export default {
   },
   render (h) {
     let props = {
-      layout: this.layout,
+      // layout: this.layout,
       model: this.form,
     }
 
-    if (props.layout === 'inline') {
-      if (this.columns) {
+    // if (props.layout === 'inline') {
+    //   if (this.columns) {
 
-      }
-    }
+    //   }
+    // }
 
     if (this.isModel && !this.noValidate) {
       props.rules = this.form.rules
     }
 
     return <div class="erpack-form">
-      <a-form-model {...{ props }}>
+      <a-form-model ref="form" {...{ props }}>
         {this.$slots.default}
       </a-form-model>
     </div>
@@ -128,6 +130,20 @@ export default {
      * 例如用了自己封装的组件，属性值可能是一个对象或数组，无法常规检测到变更，需要手动触发该事件
      * @param {String} attribute 属性名称
      */
-    change (attribute) { }
+    change (attribute) { },
+    /**
+     * 验证表单
+     */
+    validate () {
+      return new Promise((resolve, reject) => {
+        this.$refs.form.validate(valid => {
+          if (valid) {
+            let form = this.form
+
+            resolve(form)
+          } else reject(valid)
+        })
+      })
+    },
   }
 }

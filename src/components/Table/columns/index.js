@@ -27,16 +27,13 @@ export const toColumn = (config, Model, h) => {
     }
   }
 
-
   let { dataIndex } = config
 
   if (Model.isDict(dataIndex)) {
     config.type = 'dict'
   }
 
-
   let { type = 'text' } = config
-
 
   let Column = Columns[type]
 

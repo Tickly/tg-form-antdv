@@ -81,6 +81,11 @@ export default {
       })
     }
   },
+  mounted () {
+    let el = this.$el
+    let label = el.querySelector('.ant-form-item-label')
+    label.style.width = this.form.labelWidth
+  },
   render (h) {
     let props = {
       prop: this.prop,
@@ -111,7 +116,9 @@ export default {
       props,
       style,
     }, [
-      this.$slots.label ? h('template', { slot: 'label' }, this.$slots.label) : null,
+      this.$slots.label
+        ? h('template', { slot: 'label' }, this.$slots.label)
+        : null,
       this.$slots.default
     ])
   }

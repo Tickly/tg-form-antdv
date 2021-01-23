@@ -35,7 +35,6 @@ const TeamDialog = {
   }
 }
 
-
 @Describable
 class Team extends ErpackModel {
   @Label('队伍名称')

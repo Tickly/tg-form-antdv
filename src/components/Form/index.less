@@ -1,9 +1,18 @@
-.model-form {
+.erpack-form {
   .ant-form-inline {
     display: flex;
     flex-wrap: wrap;
   }
-  .model-form-item {
+  .erpack-form-item {
+    display: flex;
     margin-right: 0;
+
+    > .ant-form-item-control-wrapper {
+      flex-grow: 1;
+    }
+
+    .ant-input-number {
+      width: 100%;
+    }
   }
 }
