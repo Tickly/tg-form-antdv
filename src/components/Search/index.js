@@ -1,3 +1,4 @@
+import { ErpackForm, ErpackFormItem } from '../Form'
 
 export const ErpackSearch = {
   name: 'ErpackSearch',
@@ -34,9 +35,9 @@ export const ErpackSearch = {
         return 'page-search-nowrap'
       return 'page-search-wrap'
     },
-    actionWidth() {
+    actionWidth () {
       console.log(this.$refs)
-      if(!this.$refs.action) return 0
+      if (!this.$refs.action) return 0
     }
   },
   mounted () {
@@ -53,7 +54,7 @@ export const ErpackSearch = {
           : item
       const { component, prop, label, alwaysshow, ...props } = config
       return h(
-        'erpack-form-item',
+        ErpackFormItem,
         {
           props: {
             prop,
@@ -149,11 +150,12 @@ export const ErpackSearch = {
   },
   render (h) {
     return h(
-      'erpack-form',
+      ErpackForm,
       {
         props: {
           columns: this.columns,
           form: new this.Model(),
+          layout: 'inline',
           noValidate: true
         },
         class: 'search-from',

@@ -16,7 +16,7 @@ export default {
     },
     layout: {
       type: String,
-      default: 'inline'
+      default: 'horizontal'
     },
     /**
      * 统一给文本设置宽度
@@ -60,7 +60,7 @@ export default {
   },
   render (h) {
     let props = {
-      // layout: this.layout,
+      layout: this.layout,
       model: this.form,
     }
 
