@@ -121,6 +121,21 @@ export const ErpackSearch = {
             break
         }
       })
+      this.$nextTick(() => {
+        this.setItemWidth()
+      })
+    },
+    setItemWidth () {
+      const items = this.$el.querySelectorAll(
+        '.search-from .ant-form-item'
+      )
+      let btnWidth = 0
+      if (this.className === 'page-search-nowrap') {
+        btnWidth = this.$refs.btns.offsetWidth + 20
+      }
+      items.forEach((el) => {
+        el.style.width = `calc((100% - ${btnWidth}px) / ${this.columns})`
+      })
     },
     search () {
       this.emit()
