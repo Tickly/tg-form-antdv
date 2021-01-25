@@ -77,6 +77,10 @@ export const ErpackTable = {
       type: Boolean,
       default: true
     },
+    /**
+     * 是否自动获取数据
+     */
+    autoFetch: Boolean,
   },
   data () {
     return {
@@ -142,7 +146,9 @@ export const ErpackTable = {
     // console.log(this)
   },
   mounted () {
-    this.fetch()
+    if (this.autoFetch) {
+      this.fetch()
+    }
   },
   render (h) {
     let props = {

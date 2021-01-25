@@ -1,4 +1,4 @@
-import { ErpackModel, Describable, Dict, Label, } from '../../components'
+import { ErpackModel, Describable, Label, } from '../../components'
 
 @Describable
 class User extends ErpackModel {
@@ -7,7 +7,6 @@ class User extends ErpackModel {
   name
 
   @Label('性别')
-  @Dict()
   gender
 
   @Label('年龄')

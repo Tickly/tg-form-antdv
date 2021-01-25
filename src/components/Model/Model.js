@@ -1,5 +1,5 @@
 import Descriptions from './Descriptions'
-import { Describable, Label, getDictNameProperty } from './Decorators'
+import { Describable, Label } from './Decorators'
 
 import Rules from './Rules'
 
@@ -52,24 +52,7 @@ class ErpackModel {
     let description = this.getDescription(property)
     if (description) return description.label
   }
-
-  /**
-   * 获取字段是否为字典项
-   * @param {String} property 属性名称
-   */
-  static isDict (property) {
-    let description = this.getDescription(property)
-    if (description) return description.isDict
-  }
-
-  /**
-   * 获取字典项name的属性名称
-   * @param {String} property 属性名称
-   */
-  static getDictNameProperty (property) {
-    return getDictNameProperty(property)
-  }
-
+ 
   /**
    * 添加一个验证规则
    *
@@ -125,6 +108,10 @@ class ErpackModel {
       return Object.assign(options, queryOptions, { prop: proprety })
     }
     return {}
+  }
+
+  renderContent () {
+
   }
 }
 
