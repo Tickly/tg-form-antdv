@@ -9,7 +9,17 @@ export function Describable (target) {
     constructor (data) {
       super()
 
-      for (const key in data) {
+      let keys = new Set()
+
+      Object.keys(this).map(key => keys.add(key))
+
+      if (data) {
+        Object.keys(data).map(key => keys.add(key))
+      } else {
+        data = {}
+      }
+
+      for (const key of keys) {
         let value = data[key]
 
         let description = this.constructor.getDescription(key) || {}

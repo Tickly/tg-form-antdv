@@ -2,6 +2,7 @@ import Descriptions from './Descriptions'
 import { Describable, Label } from './Decorators'
 
 import Rules from './Rules'
+import { PropertyDescriptor } from './PropertyDescriptor'
 
 @Describable
 class ErpackModel {
@@ -49,7 +50,7 @@ class ErpackModel {
     let description = this.getDescription(property)
     if (description) return description.label
   }
- 
+
   /**
    * 添加一个验证规则
    *
@@ -105,6 +106,34 @@ class ErpackModel {
       return Object.assign(options, queryOptions, { prop: proprety })
     }
     return {}
+  }
+
+  /**
+   * 获取保存时需要的数据
+   */
+  getSaveData () {
+    let form = {}
+
+    let unSaveProps = this.unSaveProps()
+
+    Object.keys(this).map(key => {
+      if (unSaveProps.indexOf(key) > -1) return
+
+      let description = this.constructor.getDescription(key) || {}
+      let { type: descriptor = PropertyDescriptor } = description
+      let value = descriptor.getProperty(this, key)
+
+      Reflect.set(form, key, value)
+    })
+
+    return form
+  }
+
+  /**
+   * 不需要保存的字段
+   */
+  unSaveProps () {
+    return []
   }
 
   renderContent () {

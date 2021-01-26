@@ -22,7 +22,7 @@ class PropertyDescriptor {
    * 提交请求时转换成接口需要的格式
    */
   static getProperty (target, property) {
-
+    return Reflect.get(target, property)
   }
 }
 

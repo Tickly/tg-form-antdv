@@ -103,7 +103,9 @@ export default {
   mounted () {
     let el = this.$el
     let label = el.querySelector('.ant-form-item-label')
-    label.style.width = this.form.labelWidth
+    if (label) {
+      label.style.width = this.form.labelWidth
+    }
   },
   render (h) {
     let props = {
@@ -149,10 +151,6 @@ export default {
       if (this.displayText) return this.displayText
 
       const value = this.value
-
-      console.log(value)
-      console.log(typeof value)
-      console.log(value instanceof ErpackModel)
 
       if (this.value instanceof ErpackModel) {
         return this.value.renderContent()
