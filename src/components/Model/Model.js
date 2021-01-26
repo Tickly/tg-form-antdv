@@ -5,9 +5,6 @@ import Rules from './Rules'
 
 @Describable
 class ErpackModel {
-  @Label('主键id')
-  zjid
-
   /**
    * 添加一个属性描述
    * @param {String} property 属性名称
