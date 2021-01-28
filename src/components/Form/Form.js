@@ -3,8 +3,36 @@
  */
 import { ErpackModel } from '../Model'
 
+const ActionModes = {
+  Create: 'create',
+  Detail: 'detail',
+  Edit: 'edit',
+}
+
+const ActionModeMixin = {
+  computed: {
+    /**
+     * 写成computed属性
+     * 假如某个组件不能用ActionMode作为值，可以重写这个属性，换成别的值。
+     */
+    _ActionMode () {
+      return this.ActionMode
+    },
+    isDetail () {
+      return this._ActionMode === ActionModes.Detail
+    },
+    isEdit () {
+      return this._ActionMode === ActionModes.Edit
+    },
+    isCreate () {
+      return this._ActionMode === ActionModes.Create
+    },
+  }
+}
+
 export default {
   name: 'ErpackForm',
+  mixins: [ActionModeMixin],
   props: {
     /**
      * 数据实例
@@ -39,6 +67,9 @@ export default {
     },
     // 是否需要显示验证规则
     noValidate: Boolean,
+    ActionMode: {
+      type: String,
+    }
   },
   data () {
     return {
@@ -51,7 +82,8 @@ export default {
     },
     isModel () {
       return this.form instanceof ErpackModel
-    }
+    },
+
   },
   provide () {
     return {
@@ -69,9 +101,14 @@ export default {
 
     //   }
     // }
-
-    if (this.isModel && !this.noValidate) {
-      props.rules = this.form.rules
+    
+    /**
+     * 编辑的时候，才加验证
+     */
+    if (this.isCreate || this.isEdit) {
+      if (this.isModel && !this.noValidate) {
+        props.rules = this.form.rules
+      }
     }
 
     return <div class="erpack-form">
@@ -138,8 +175,7 @@ export default {
       return new Promise((resolve, reject) => {
         this.$refs.form.validate(valid => {
           if (valid) {
-            let form = this.form
-
+            let form = this.form.getSaveData()
             resolve(form)
           } else reject(valid)
         })

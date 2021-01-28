@@ -2,6 +2,8 @@
  * ErpackFormItem
  */
 
+import { ErpackModel } from '../Model'
+
 export default {
   name: 'ErpackFormItem',
   props: {
@@ -9,6 +11,13 @@ export default {
      * 属性名称
      */
     prop: String,
+    /**
+     * 直接指定要展示的文字
+     * 
+     * 比如这个字段本身是个关联对象，但是接口不是给的对象过来，
+     * 而是把对象拆开来，直接给了好几个字段过来，这时候直接指定要显示字段的值即可。
+     */
+    displayText: String,
 
     /**
      * 文本描述
@@ -64,27 +73,39 @@ export default {
     },
     // 错误信息
     errors () {
-      return this.formErrors[this.attr] || []
+      return this.formErrors[this.prop] || []
     },
     // 校验文案
     help () {
       if (this.errors.length) return this.errors[0]
     },
     value () {
-      return this.form.form[this.attr]
-    }
+      return this.form.form[this.prop]
+    },
+    /**
+     * 根据这个值去控制，是显示编辑器，还是自动渲染文本
+     * true 编辑器
+     * false 文本
+     */
+    editable () {
+      if (this.form.isDetail) return false
+
+      return true
+    },
   },
   created () {
-    if (this.attr) {
+    if (this.prop) {
       this.$watch('value', () => {
-        this.form.change(this.attr)
+        this.form.change(this.prop)
       })
     }
   },
   mounted () {
     let el = this.$el
     let label = el.querySelector('.ant-form-item-label')
-    label.style.width = this.form.labelWidth
+    if (label) {
+      label.style.width = this.form.labelWidth
+    }
   },
   render (h) {
     let props = {
@@ -119,7 +140,22 @@ export default {
       this.$slots.label
         ? h('template', { slot: 'label' }, this.$slots.label)
         : null,
-      this.$slots.default
+      this.editable ? this.renderEditor(h) : this.renderText(h)
     ])
+  },
+  methods: {
+    renderEditor (h) {
+      return this.$slots.default
+    },
+    renderText (h) {
+      if (this.displayText) return this.displayText
+
+      const value = this.value
+
+      if (this.value instanceof ErpackModel) {
+        return this.value.renderContent()
+      }
+      return this.value
+    },
   }
 }

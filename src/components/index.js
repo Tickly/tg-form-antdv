@@ -1,6 +1,8 @@
 export * from './Model'
 
 import { ErpackTable } from './Table'
+export * from './Table/columns'
+
 import { ErpackForm, ErpackFormItem } from './Form'
 import { ErpackSearch } from './Search'
 

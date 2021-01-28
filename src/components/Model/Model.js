@@ -1,13 +1,11 @@
 import Descriptions from './Descriptions'
-import { Describable, Label, getDictNameProperty } from './Decorators'
+import { Describable, Label } from './Decorators'
 
 import Rules from './Rules'
+import { PropertyDescriptor } from './PropertyDescriptor'
 
 @Describable
 class ErpackModel {
-  @Label('主键id')
-  zjid
-
   /**
    * 添加一个属性描述
    * @param {String} property 属性名称
@@ -51,23 +49,6 @@ class ErpackModel {
   static getLabel (property) {
     let description = this.getDescription(property)
     if (description) return description.label
-  }
-
-  /**
-   * 获取字段是否为字典项
-   * @param {String} property 属性名称
-   */
-  static isDict (property) {
-    let description = this.getDescription(property)
-    if (description) return description.isDict
-  }
-
-  /**
-   * 获取字典项name的属性名称
-   * @param {String} property 属性名称
-   */
-  static getDictNameProperty (property) {
-    return getDictNameProperty(property)
   }
 
   /**
@@ -125,6 +106,38 @@ class ErpackModel {
       return Object.assign(options, { prop: proprety }, queryOptions, )
     }
     return {}
+  }
+
+  /**
+   * 获取保存时需要的数据
+   */
+  getSaveData () {
+    let form = {}
+
+    let unSaveProps = this.unSaveProps()
+
+    Object.keys(this).map(key => {
+      if (unSaveProps.indexOf(key) > -1) return
+
+      let description = this.constructor.getDescription(key) || {}
+      let { type: descriptor = PropertyDescriptor } = description
+      let value = descriptor.getProperty(this, key)
+
+      Reflect.set(form, key, value)
+    })
+
+    return form
+  }
+
+  /**
+   * 不需要保存的字段
+   */
+  unSaveProps () {
+    return []
+  }
+
+  renderContent () {
+
   }
 }
 

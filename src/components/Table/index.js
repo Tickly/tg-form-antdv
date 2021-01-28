@@ -37,9 +37,7 @@ export const ErpackTable = {
   name: 'ErpackTable',
   mixins: [PaginationMixin],
   props: {
-    url: {
-      type: String,
-    },
+    url: String,
     columns: {
       type: Array,
       default: () => []
@@ -77,6 +75,11 @@ export const ErpackTable = {
       type: Boolean,
       default: true
     },
+    /**
+     * 是否自动获取数据
+     */
+    autoFetch: Boolean,
+    getCheckboxProps: Function,
   },
   data () {
     return {
@@ -142,7 +145,9 @@ export const ErpackTable = {
     // console.log(this)
   },
   mounted () {
-    this.fetch()
+    if (this.autoFetch) {
+      this.fetch()
+    }
   },
   render (h) {
     let props = {
@@ -152,13 +157,16 @@ export const ErpackTable = {
       scroll: this._scroll,
       bordered: this.bordered,
       pagination: this.pagination,
+      ...this.$attrs,
     }
 
     if (this.selectable) {
       props.rowSelection = {
         type: this.single ? 'radio' : 'checkbox',
+        getCheckboxProps: this.getCheckboxProps,
         onChange: (selectedRowKeys, selectedRows) => {
-          // console.log(selectedRowKeys, selectedRows)
+          this.selectedRowKeys = selectedRowKeys
+          this.selectedRows = selectedRows
 
           this.$emit('selection-change', selectedRowKeys, selectedRows)
         }
@@ -166,7 +174,10 @@ export const ErpackTable = {
     }
 
     return h('a-table', {
-      props
+      props,
+      on: {
+        ...this.$listeners,
+      }
     })
   },
   methods: {
