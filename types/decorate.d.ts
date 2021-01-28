@@ -1,6 +1,11 @@
 
+interface QueryProps {
+  prop?: string;
+  label?: string;
+}
+export function Describable(target: any): Function
 
-export function Query(component: string, prop?: string, label?: string, ...props: any): Function
+export function Query(component: string, props: QueryProps): Function
 
 export function Dict(lx?: string): Function
 

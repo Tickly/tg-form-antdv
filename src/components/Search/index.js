@@ -1,5 +1,5 @@
 import { ErpackForm, ErpackFormItem } from '../Form'
-
+import './index.less'
 export const ErpackSearch = {
   name: 'ErpackSearch',
   props: {
@@ -20,6 +20,10 @@ export const ErpackSearch = {
       type: [Boolean, String],
       default: true,
     },
+    labelWidth: {
+      type: String,
+      default: '8em'
+    }
   },
   data () {
     return {
@@ -35,55 +39,41 @@ export const ErpackSearch = {
         return 'page-search-nowrap'
       return 'page-search-wrap'
     },
-    actionWidth () {
-      console.log(this.$refs)
-      if (!this.$refs.action) return 0
+    modelItems () {
+      return this.items.map(item => {
+        const config =
+          typeof item === 'string'
+            ? this.Model.getQuery(item)
+            : item
+        if (!config.label) {
+          if (this.Model.getLabel(config.prop)) label = this.Model.getLabel(config.prop)
+        }
+        return config
+      })
+    }
+  },
+  watch: {
+    searchParams: {
+      deep: true,
+      handler () {
+        this.$nextTick(() => {
+          this.setItemWidth()
+        })
+      }
     }
   },
   mounted () {
-    if (this.toggle && this.showItemNum <= this.items.length) {
-      this.toggleAdvanced()
-    }
+    this.$nextTick(() => {
+      this.toggleAdvanced();
+    })
   },
   methods: {
     renderItem (h, item) {
-      // const config = {}
-      const config =
-        typeof item === 'string'
-          ? this.Model.getQuery(item)
-          : item
-      const { component, prop, label, alwaysshow, ...props } = config
-      return h(
-        ErpackFormItem,
-        {
-          props: {
-            prop,
-            label,
-          },
-          key: prop,
-          ref: 'itemRefs',
-          refInFor: true,
-        },
-        [
-          h(component || 'a-input', {
-            props: {
-              ...props,
-              value: this.searchParams[prop],
-            },
-            attrs: {
-              alwaysshow,
-            },
-            on: {
-              change: e => {
-                if (e instanceof Event) {
-                  e = e.target.value
-                }
-                this.$set(this.searchParams, prop, e)
-              },
-            },
-          }),
-        ]
-      )
+      let { component, prop, label, ...props } = item
+      const tag = component || 'a-input'
+      return <ErpackFormItem ref="itemRefs" key={prop} refInFor prop={prop} label={label}>
+        <tag {...props} vModel={this.searchParams[prop]}></tag>
+      </ErpackFormItem>
     },
     renderActions () {
       return (
@@ -93,14 +83,14 @@ export const ErpackSearch = {
               搜索
             </a-button>
             <a-button onClick={() => this.reset()}>重置</a-button>
-            {this.toggle ? (
-              <a onClick={() => this.toggleAdvanced()}>
-                {this.advanced ? '收起' : '展开'}
-                <a-icon type={this.advanced ? 'up' : 'down'} />
-              </a>
-            ) : (
-                ''
-              )}
+            {
+              this.items.length > this.showItemNum && (
+                <a onClick={() => this.toggleAdvanced()}>
+                  {this.advanced ? '收起' : '展开'}
+                  <a-icon type={this.advanced ? 'up' : 'down'} />
+                </a>
+              )
+            }
           </a-space>
         </div>
       )
@@ -131,7 +121,7 @@ export const ErpackSearch = {
       )
       let btnWidth = 0
       if (this.className === 'page-search-nowrap') {
-        btnWidth = this.$refs.btns.offsetWidth + 20
+        btnWidth = this.$refs.action.offsetWidth + 20
       }
       items.forEach((el) => {
         el.style.width = `calc((100% - ${btnWidth}px) / ${this.columns})`
@@ -154,9 +144,9 @@ export const ErpackSearch = {
       {
         props: {
           columns: this.columns,
-          form: new this.Model(),
           layout: 'inline',
-          noValidate: true
+          noValidate: true,
+          labelWidth: this.labelWidth,
         },
         class: 'search-from',
       },
@@ -167,7 +157,7 @@ export const ErpackSearch = {
             class: this.className,
           },
           [
-            ...this.items.map(item => this.renderItem(h, item)),
+            ...this.modelItems.map(item => this.renderItem(h, item)),
             this.renderActions(),
           ]
         ),

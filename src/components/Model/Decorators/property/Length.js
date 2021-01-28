@@ -1,15 +1,14 @@
 /**
- * 字符串长度验证
+ * * 字符串长度验证
  *
  * @param {Number} length
  * @returns
  */
-export function Length(length) {
+export function MaxLength(length) {
   return (target, property) =>{
     const rule = {
       max: length,
       message: `最多输入${length}个字符`,
-      trigger: 'blur'
     }
     target.constructor.addRule(property, rule)
   }

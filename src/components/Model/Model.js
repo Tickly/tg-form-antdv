@@ -122,7 +122,7 @@ class ErpackModel {
     let description = this.getDescription(proprety)
     if (description) {
       const { queryOptions, setProperty, ...options } = description
-      return Object.assign(options, queryOptions, { prop: proprety })
+      return Object.assign(options, { prop: proprety }, queryOptions, )
     }
     return {}
   }
