@@ -30,11 +30,6 @@ export default {
      */
     noLabel: Boolean,
 
-    labelCol: { type: Number, default: 6 },
-    colSpan: {
-      type: Number,
-      default: 1,
-    },
   },
   inject: {
     form: 'ErpackForm'
@@ -93,13 +88,7 @@ export default {
       return true
     },
   },
-  created () {
-    if (this.prop) {
-      this.$watch('value', () => {
-        this.form.change(this.prop)
-      })
-    }
-  },
+  created () { },
   mounted () {
     let el = this.$el
     let label = el.querySelector('.ant-form-item-label')
@@ -118,12 +107,9 @@ export default {
     }
     let style = {}
 
-    // 自动计算 labelCol
     if (this.form.layout === 'inline') {
       if (this.form.columns) {
-        style.width = (100 / this.form.columns * this.colSpan).toFixed(2) + '%'
-        props.labelCol = { span: this.labelCol }
-        props.wrapperCol = { span: 24 - this.labelCol }
+        style.width = (100 / this.form.columns).toFixed(2) + '%'
       }
     }
 
