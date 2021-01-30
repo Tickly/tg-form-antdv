@@ -131,7 +131,7 @@ export const ErpackSearch = {
       this.emit()
     },
     reset () {
-      this.searchParams = {}
+      this.searchParams = new this.Model()
       this.emit()
     },
     emit () {

@@ -13,7 +13,7 @@ export default {
     renderTable (h) {
       return h('ErpackTable', {
         props: {
-          ModelClass: this.ModelClass,
+          Model: this.ModelClass,
           columns: this.columns,
           dataSource: this.dataSource,
           selectable: this.selectable,

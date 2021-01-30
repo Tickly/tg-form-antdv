@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const EmptyView = {
+  name: 'EmptyView',
   render: h => h('router-view')
 }
 
